@@ -1,0 +1,101 @@
+[
+{
+  "input":{
+    "path":["D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_4\\list\\data20161214new.lst"]
+  },
+  "process":{
+    "type":"split",
+    "label_num":{
+      "0":0,
+      "1":70,
+      "2":168,
+      "3":0,
+      "4":78,
+      "5":122,
+      "6":2,
+      "7":56,
+      "8":90,
+      "9":82
+    }
+  },
+  "output":{
+    "train_path":"D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_5\\list\\data20161214new_train2.lst",
+    "test_path":"D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_5\\list\\data20161214new_test2.lst"
+  }
+},
+{
+  "input":{
+    "path":["D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_5\\list\\scene20161216_17new.lst"]
+  },
+  "process":{
+    "type":"split",
+    "label_num":{
+      "0":0,
+      "1":55,
+      "2":5,
+      "3":0,
+      "4":0,
+      "5":0,
+      "6":592,
+      "7":150,
+      "8":85,
+      "9":113
+    }
+  },
+  "output":{
+    "train_path":"D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_5\\list\\scene20161216_17new_train.lst",
+    "test_path":"D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_5\\list\\scene20161216_17new_test.lst"
+  }
+},
+{
+  "input":{
+    "path":["D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_5\\list\\data20161214new_train2.lst",
+    "D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_5\\list\\scene20161216_17new_train.lst",
+    "D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_3\\list\\train_without_inke.lst"]
+  },
+  "process":{
+    "type":"target",
+    "label_num":{
+      "0":20000,
+      "1":80000,
+      "2":80000,
+      "3":40000,
+      "4":80000,
+      "5":40000,
+      "6":40000,
+      "7":40000,
+      "8":80000,
+      "9":40000
+    }
+  },
+  "output":{
+    "path":"D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_5\\list\\train_balanced_without_inke.lst"
+  }
+},
+{
+  "input":{
+    "path":["D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_5\\list\\train_balanced_without_inke.lst",
+    "D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_3\\list\\train_only_inke.lst"]
+  },
+  "process":{
+    "type":"merge"
+  },
+  "output":{
+    "path":"D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_5\\list\\train_balanced.lst"
+  }
+},
+{
+  "input":{
+    "path":["D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_3\\list\\test_without_inke.lst",
+    "D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_5\\list\\data20161214new_test2.lst",
+    "D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_5\\list\\scene20161216_17new_test.lst",
+    "D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_5\\list\\test_inke3200.lst"]
+  },
+  "process":{
+    "type":"merge"
+  },
+  "output":{
+    "path":"D:\\PycharmProjects\\Greendam\\DataTool\\data\\scene_v1_5\\list\\test.lst"
+  }
+}
+]
