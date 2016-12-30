@@ -66,5 +66,5 @@ if __name__ == '__main__':
     output_path = sys.argv[3]
     for i in range(4, len(sys.argv)):
         json_file_path  = sys.argv[i]
-        print "No."+str(i)+":"+json_file_path
+        print "No."+str(i-3)+":"+json_file_path
         gen_csv(json_file_path,img_path, output_path)
