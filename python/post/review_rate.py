@@ -26,17 +26,19 @@ class Review:
             for line in file_read:
                 line_count += 1
                 strs = line.split("\t")
+                if strs[1] == "-1":
+                    continue
                 if dict.has_key(int(strs[1])):
                     dict[int(strs[1])] += 1
                 else:
                     dict[int(strs[1])] = 1
             if file_count == 1:
                 _print =  '%25s  %s' %('ImageReviewRate',\
-                    '  '.join(['%-9s' %('class-%d' %c) for c in range(len(dict))]))
+                    '  '.join(['%-8s' %('class-%d' %c) for c in range(len(dict))]))
                 print _print
             _print = '%25s  ' %get_lastname_of_path(file)
             for key,value in dict.items():
-                _print += '%.8s'%(float(value)*100/line_count)+"%  "
+                _print += '%.7s'%(float(value)*100/line_count)+"%  "
             print _print
 
     def get_video_review_rate(self):
@@ -57,6 +59,8 @@ class Review:
             max_label_index = 0
             for line in file_read:
                 strs = line.split("\t")
+                if strs[1] == "-1":
+                    continue
                 videoid,frameid = get_lastname_of_path(strs[0]).split("_")
                 ## v1
                 if dict_videoid_isreview.has_key(videoid)==False:
@@ -72,10 +76,10 @@ class Review:
                     video_review_count += 1
             if file_count == 1:
                 _print =  '%25s  %s' %('VideoReviewRate_v1',\
-                    '  '.join(['%-9s' %('class-1~%d' %(max_label_index))]))
+                    '  '.join(['%-8s' %('class-1~%d' %(max_label_index))]))
                 print _print
             _print = '%25s  ' %get_lastname_of_path(file)
-            _print += '%.8s'%(float(video_review_count*100)/video_count)+"%"
+            _print += '%.7s'%(float(video_review_count*100)/video_count)+"%"
             print _print
 
     def get_video_review_rate_v2(self):
@@ -93,6 +97,8 @@ class Review:
             max_label_index = 0
             for line in file_read:
                 strs = line.split("\t")
+                if strs[1] == "-1":
+                    continue
                 videoid,frameid = get_lastname_of_path(strs[0]).split("_")
                 if dict_videoid_isreview.has_key(videoid)==False:
                     dict_videoid_isreview[videoid] = (int(strs[1]) > 0)
@@ -106,10 +112,10 @@ class Review:
             video_count = len(dict_videoid_isreview)
             if file_count == 1:
                 _print =  '%25s  %s' %('VideoReviewRate_v2',\
-                    '  '.join(['%-9s' %('class-%d' %c) for c in range(len(dict_label_videoid_dict))]) )
+                    '  '.join(['%-8s' %('class-%d' %c) for c in range(len(dict_label_videoid_dict))]) )
                 print _print
             _print = '%25s  %s' %(get_lastname_of_path(file),\
-                    '  '.join(['%.8s%%' %('%f' %( float( float( len(dict_label_videoid_dict[c])*100 )/video_count ) ))  for c in range(len(dict_label_videoid_dict))]) )
+                    '  '.join(['%.7s%%' %('%f' %( float( float( len(dict_label_videoid_dict[c])*100 )/video_count ) ))  for c in range(len(dict_label_videoid_dict))]) )
             print _print
 
 if __name__ == '__main__':
