@@ -1,0 +1,62 @@
+[
+{
+  "input":{
+    "path":["/data/greendam/model_training/greendam_inke_v4_2/data/av_images_label.txt"]
+  },
+  "process":{
+    "type":"split",
+    "label_num":{
+      "0":1000,
+      "1":1000,
+      "2":1000
+    }
+  },
+  "output":{
+    "train_path":"/data/greendam/model_training/greendam_inke_v4_2/data/train_av.csv",
+    "test_path":"/data/greendam/model_training/greendam_inke_v4_2/data/test_av.csv"
+  }
+},
+{
+  "input":{
+    "path":["/data/greendam/model_training/greendam_inke_v4_2/data/train_av.csv"]
+  },
+  "process":{
+    "type":"target",
+    "label_num":{
+      "0":177450,
+      "1":177450,
+      "2":177450
+    }
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_inke_v4_2/data/train_av_balanced.csv"
+  }
+},
+{
+  "input":{
+    "path":["/data/greendam/model_training/greendam_inke_v4_2/data/train1.csv",
+    "/data/greendam/model_training/greendam_inke_v4_2/data/train2.csv",
+    "/data/greendam/model_training/greendam_inke_v4_2/data/train_av_balanced.csv"]
+  },
+  "process":{
+    "type":"merge"
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_inke_v4_2/data/train_balanced.lst"
+  }
+},
+{
+  "input":{
+    "path":["/data/greendam/model_training/greendam_inke_v4_2/data/test1.csv",
+    "/data/greendam/model_training/greendam_inke_v4_2/data/test2.csv",
+    "/data/greendam/model_training/greendam_inke_v4_2/data/test3.csv",
+    "/data/greendam/model_training/greendam_inke_v4_2/data/test_av.csv"]
+  },
+  "process":{
+    "type":"merge"
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_inke_v4_2/data/test.lst"
+  }
+}
+]
