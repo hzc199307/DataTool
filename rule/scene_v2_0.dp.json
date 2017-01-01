@@ -1,0 +1,108 @@
+[
+{
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/shentu161230mi_images_label.txt"]
+  },
+  "process":{
+    "type":"split",
+    "label_num":{
+      "6":152,
+      "10":85,
+      "11":116,
+      "12":110,
+      "13":45,
+      "14":53,
+      "15":37,
+      "16":53,
+      "17":5,
+      "18":10,
+      "19":32,
+      "20":10,
+      "21":20,
+      "22":40,
+      "23":23,
+      "24":58
+    }
+  },
+  "output":{
+    "train_path":"/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/shentu161230mi_train_images_label.txt",
+    "test_path":"/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/shentu161230mi_test_images_label.txt"
+  }
+},
+{
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/scene_v1_6_train_without_inke_without_mi.lst",
+    "/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/shentu161230mi_train_images_label.txt",
+    "/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/shentu161230scene7_images_label.txt"]
+  },
+  "process":{
+    "type":"merge"
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/scene_v2_0_train_without_inke.lst"
+  }
+},
+{
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/scene_v2_0_train_without_inke.lst"]
+  },
+  "process":{
+    "type":"target",
+    "label_num":{
+      "0":10000,
+      "1":60000,
+      "2":40000,
+      "3":20000,
+      "4":40000,
+      "5":50000,
+      "6":10000,
+      "7":50000,
+      "8":60000,
+      "9":50000,
+      "10":10000,
+      "11":10000,
+      "12":10000,
+      "13":10000,
+      "14":10000,
+      "15":10000,
+      "16":10000,
+      "17":10000,
+      "18":10000,
+      "19":10000,
+      "20":10000,
+      "21":10000,
+      "22":10000,
+      "23":10000,
+      "24":10000
+    }
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/scene_v2_0_train_balanced_without_inke.lst"
+  }
+},
+{
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/scene_v2_0_train_balanced_without_inke.lst",
+    "/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/train_inke_10w_scene_v1_6"]
+  },
+  "process":{
+    "type":"merge"
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/scene_v2_0_train_balanced.lst"
+  }
+},
+{
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/test_inke_4000_scene_v1_6",
+    "/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/scene_v1_6_test_without_inke_without_mi.lst",
+    "/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/shentu161230mi_test_images_label.txt"]
+  },
+  "process":{
+    "type":"merge"
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_scene_v1/data/scene_v1_7/list/scene_v2_0_test.lst"
+  }
+}
+]

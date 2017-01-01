@@ -19,10 +19,12 @@ class Review:
         file_count = 0
         for file in self.file_list:
             ## 针对每个file分别计算复审率
+            # images_count_perlabel = np.zeros((class_num),dtype=np.int32)
             dict = {}
             line_count = 0
             file_count += 1
             file_read = open(file)
+            max_label_index = 0
             for line in file_read:
                 line_count += 1
                 strs = line.split("\t")
@@ -32,13 +34,22 @@ class Review:
                     dict[int(strs[1])] += 1
                 else:
                     dict[int(strs[1])] = 1
+                if int(strs[1]) > max_label_index:
+                    max_label_index = int(strs[1])
             if file_count == 1:
                 _print =  '%25s  %s' %('ImageReviewRate',\
-                    '  '.join(['%-8s' %('class-%d' %c) for c in range(len(dict))]))
+                    '  '.join(['%-8s' %('class-%d' %c) for c in range(max_label_index+1)]))
                 print _print
             _print = '%25s  ' %get_lastname_of_path(file)
-            for key,value in dict.items():
-                _print += '%.7s'%(float(value)*100/line_count)+"%  "
+            for label in range(max_label_index+1):
+                if dict.has_key(label):
+                    ratio = float(dict[label])*100/line_count
+                    if ratio == 0.0:
+                        _print += "0.0%      "
+                    else:
+                        _print += '%.7s%%  '%(ratio)
+                else:
+                    _print += "0.0%      "
             print _print
 
     def get_video_review_rate(self):
@@ -109,13 +120,25 @@ class Review:
                     dict_label_videoid_dict[int(strs[1])] = {}
                 else:
                     dict_label_videoid_dict[int(strs[1])][videoid] = True
+                if int(strs[1]) > max_label_index:
+                    max_label_index = int(strs[1])
             video_count = len(dict_videoid_isreview)
             if file_count == 1:
                 _print =  '%25s  %s' %('VideoReviewRate_v2',\
-                    '  '.join(['%-8s' %('class-%d' %c) for c in range(len(dict_label_videoid_dict))]) )
+                    '  '.join(['%-8s' %('class-%d' %c) for c in range(max_label_index+1)]) )
                 print _print
-            _print = '%25s  %s' %(get_lastname_of_path(file),\
-                    '  '.join(['%.7s%%' %('%f' %( float( float( len(dict_label_videoid_dict[c])*100 )/video_count ) ))  for c in range(len(dict_label_videoid_dict))]) )
+            _print = '%25s  ' %get_lastname_of_path(file)
+            for label in range(max_label_index+1):
+                if dict_label_videoid_dict.has_key(label):
+                    ratio = float(len(dict_label_videoid_dict[label]))*100/video_count
+                    if ratio == 0.0:
+                        _print += "0.0%      "
+                    else:
+                        _print += '%.7s%%  '%(ratio)
+                else:
+                    _print += "0.0%      "
+            # _print = '%25s  %s' %(get_lastname_of_path(file),\
+                    # '  '.join(['%.7s%%' %('%f' %( float( float( len(dict_label_videoid_dict[c])*100 )/video_count ) ))  for c in range(len(dict_label_videoid_dict))]) )
             print _print
 
 if __name__ == '__main__':

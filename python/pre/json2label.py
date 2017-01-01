@@ -18,6 +18,7 @@ class_num = 24
 # read label-name from name_label_table
 def read_label():
     name_dict = {}
+    max_index = 0
     with open(label_path, 'r') as f:
         for line in f:
             line_list = line.split('\t')
@@ -26,9 +27,10 @@ def read_label():
                 name = line_list[i].strip('\n')
                 name = name.strip('\r')
                 name_dict[ name ] = int(line_list[0])
-
+                if int(line_list[0]) > max_index :
+                    max_index = int(line_list[0])
     print name_dict
-    return name_dict,len(name_dict)
+    return name_dict,(max_index + 1)
 
 def read_json(json_file_path):
     with open(json_file_path, 'r') as f:
