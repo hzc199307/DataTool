@@ -1,0 +1,90 @@
+[
+{
+	"name":"calculate scene_v2_1_train.gt md5",
+	"skip":"True",
+	"input":{
+		"path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train.gt"]
+    },
+    "process":{
+    	"type":"md5"
+    },
+    "output":{
+    	"path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train_md5.gt"
+    }
+},
+{
+	"name":"aug scene_v2_1_train_md5.gt v1",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train_md5.gt"]
+  },
+  "process":{
+    "type":"target",
+    "label_num":{
+      "0":18000,
+      "1":5000,
+      "2":5000,
+      "3":5000,
+      "4":5000,
+      "5":5000,
+      "6":5000,
+      "7":5000,
+      "8":5000,
+      "9":5000,
+      "10":5000,
+      "11":5000,
+      "12":5000,
+      "13":5000,
+      "14":5000,
+      "15":5000,
+      "16":5000,
+      "17":5000,
+      "18":5000,
+      "19":5000,
+      "20":5000,
+      "21":5000,
+      "22":5000
+    }
+  },
+  "output":{
+  	"type":"lst",
+    "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train_md5_balanced_v1.lst"
+  }
+},
+{
+	"name":"aug scene_v2_1_train.gt v1",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train.gt"]
+  },
+  "process":{
+    "type":"target",
+    "label_num":{
+      "0":18000,
+      "1":5000,
+      "2":5000,
+      "3":5000,
+      "4":5000,
+      "5":5000,
+      "6":5000,
+      "7":5000,
+      "8":5000,
+      "9":5000,
+      "10":5000,
+      "11":5000,
+      "12":5000,
+      "13":5000,
+      "14":5000,
+      "15":5000,
+      "16":5000,
+      "17":5000,
+      "18":5000,
+      "19":5000,
+      "20":5000,
+      "21":5000,
+      "22":5000
+    }
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train_balanced_v1.gt"
+  }
+}
+]
