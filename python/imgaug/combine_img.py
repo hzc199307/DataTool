@@ -6,31 +6,34 @@ __date__: 2016-12-21
 
 import numpy as np
 import time
+from vt_augmenter import read_json
+import argparse
 
-src_files = ['tmp_img1.txt',
-            'tmp_img2.txt',
-            'tmp_img2.txt',
-            'tmp_img3.txt',
-            'tmp_img4.txt',
-            'tmp_img5.txt',
-            'tmp_img6.txt',
-            'tmp_img7.txt',
-            'tmp_img8.txt',
-            'tmp_img9.txt']
-des_file_path = 'vt_v1_4_2_1216_multi_class_with_170w_augment_train_img.txt'
+def get_args():
+    ## argument
+    parser = argparse.ArgumentParser(description='combine image temp files ...')
+    parser.add_argument('-c', '--conf', type=str, required=True, help="json config file path")
+    parser.add_argument('-s', '--sum', type=int, required=True, help="the sum of process")
+    args= parser.parse_args()
+    return args
+
 
 if __name__ == '__main__':
+    args = get_args()
+    print args
+    config = read_json(args.conf)
+
     localtime = time.asctime( time.localtime(time.time()) )
     print localtime
-    #time.sleep(36000)
-    print 'start....'
-    for i in range(0, len(src_files)):
-        data = np.loadtxt(src_files[i], dtype=np.str, delimiter=" ")
+    print 'start combine img....'
+    for i in range(0, args.sum):
+        tmp_file_path =os.path.join(config['output']['tmp_path'], "%d_tmp_file_path.txt" %(i)) 
+        data = np.loadtxt(tmp_file_path, dtype=np.str, delimiter=" ")
         print '%d length is :%d' %(i,data.shape[0])
-        with open(des_file_path, 'ab') as f:
+        with open(config['output']['path'], 'ab') as f:
             for j in range(0, data.shape[0]):
                 f.write(data[j][0]+ ' '+ data[j][1] + '\n')
-    print 'process over....'
-    localtime = time.asctime( time.localtime(time.time()) )
-    print localtime
+    print 'combine image file over....'
+
+
 
