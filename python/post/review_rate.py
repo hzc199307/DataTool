@@ -1,6 +1,7 @@
 # coding=utf-8
 # by hezhichao
 # 2016.12.27
+# update 2017.01.04
 # 计算复审率
 
 import sys
@@ -93,6 +94,41 @@ class Review:
             _print += '%.7s'%(float(video_review_count*100)/video_count)+"%"
             print _print
 
+    def get_video_review_rate_combine(self):
+        print "__________________________"
+        file_count = 0
+        ## 针对所有file联合计算复审率
+        dict_videoid_isreview = {}
+        dict_label_videoid_dict = {}
+        video_count = 0
+        video_review_count = 0
+        for file in self.file_list:
+            file_count += 1
+            file_read = open(file)
+            for line in file_read:
+                strs = line.split("\t")
+                if strs[1] == "-1":
+                    continue
+                videoid,frameid = get_lastname_of_path(strs[0]).split("_")
+                ## v1
+                if dict_videoid_isreview.has_key(videoid)==False:
+                    dict_videoid_isreview[videoid] = (int(strs[1]) > 0)
+                elif dict_videoid_isreview[videoid] == False:
+                    dict_videoid_isreview[videoid] = (int(strs[1]) > 0)
+            ## v1
+            for videoid,isreview in dict_videoid_isreview.items():
+                video_count += 1
+                if isreview:
+                    video_review_count += 1
+            if file_count == 1:
+                _print =  '%25s  %s' %('VideoReviewRate_combine',\
+                    '  '.join(['%-8s' %('class-1~End')]))
+                print _print
+            _print = '%25s  ' %get_lastname_of_path(file)
+            if file_count == len(self.file_list):
+                _print += '%.7s'%(float(video_review_count*100)/video_count)+"%"
+            print _print
+
     def get_video_review_rate_v2(self):
         print "__________________________"
         file_count = 0
@@ -143,7 +179,8 @@ class Review:
 
 if __name__ == '__main__':
     if(len(sys.argv)<2):
-        print "python review_rate.py video/image/all [classify_result_file ...]"
+        print "Usage:"
+        print "     python review_rate.py video/video_v1/video_v2/image/video_combine/all [classify_result_file ...]"
         exit()
     file_list = []
     for i in range(2,len(sys.argv)):
@@ -154,6 +191,8 @@ if __name__ == '__main__':
         review.get_image_review_rate()
     elif sys.argv[1]=="video":
         review.get_video_review_rate()
+    elif sys.argv[1]=="video_combine":
+        review.get_video_review_rate_combine()
     elif sys.argv[1]=="all":
         review.get_image_review_rate()
         print ""
