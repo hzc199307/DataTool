@@ -9,11 +9,13 @@
     	"type":"md5"
     },
     "output":{
-    	"path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train_md5.gt"
+    	"path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train_md5.gt",
+      "gtmd5_path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train.gtmd5"
     }
 },
 {
 	"name":"aug scene_v2_1_train_md5.gt v1",
+  "skip":"True",
   "input":{
     "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train_md5.gt"]
   },
@@ -52,6 +54,7 @@
 },
 {
 	"name":"aug scene_v2_1_train.gt v1",
+  "skip":"True",
   "input":{
     "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train.gt"]
   },
@@ -85,6 +88,39 @@
   },
   "output":{
     "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train_balanced_v1.gt"
+  }
+},
+{
+  "name":"add 10x hardcases.scene_v2_1_train_md5.scene_v2_1_0_16k.gt for v2",
+  "skip":"True",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/hardcases.scene_v2_1_train_md5.scene_v2_1_0_16k.gt",
+    "/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train_md5_balanced_v1.lst"]
+  },
+  "process":{
+    "type":"merge",
+    "file_times":{
+      "0":10,
+      "1":1
+    }
+  },
+  "output":{
+    "type":"lst",
+    "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train_md5_balanced_v2.lst"
+  }
+},
+{
+  "name":"del hardcases.scene_v2_1_train_md5.scene_v2_1_0_16k.gt for v3",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train_md5_balanced_v1.lst"]
+  },
+  "process":{
+    "type":"delete",
+    "files":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/hardcases.scene_v2_1_train_md5.scene_v2_1_0_16k.gt"]
+  },
+  "output":{
+    "type":"lst",
+    "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train_md5_balanced_v3.lst"
   }
 }
 ]
