@@ -261,6 +261,7 @@ if __name__ == '__main__':
     if(len(sys.argv)<4):
         print "Usage:"
         print "     python review_rate.py ratio/num video/video_v1/video_v2/image/video_combine/all [classify_result_file ...]"
+        print "     python review_rate.py ratio/num image_thresh/video_thresh/all_thresh [threshold_file] [classify_result_file ...]"
         exit()
     file_list = []
     isNUM = False

@@ -156,9 +156,13 @@ class ModelsModify:
         # else:
         #     caffe.set_mode_cpu()
 
-    def process(self,caffemodel,prototxt):
+    def process(self,caffemodel,prototxt,version):
         net = caffe.Net(prototxt, caffemodel, caffe.TEST)
-        self.scene23_modify_v5(net)
+        if version == "v5":
+            self.scene23_modify_v5(net)
+        elif version == "v2":
+            self.scene23_modify_v2(net)
+
         # self.scene23_modify_v2(net)
         # self.scene23_modify_v4(net,caffe.Net(prototxt, caffemodel, caffe.TEST))
         # # 先载入共享的model
@@ -184,15 +188,16 @@ class ModelsModify:
         #     output_net.save(str(self.dp_json["output_path"]))
 
 if __name__ == '__main__':
-    if (len(sys.argv) < 2):
-        print "python models_mmodify.py caffemodel prototxt"
+    if (len(sys.argv) < 4):
+        print "python models_modify.py caffemodel prototxt version"
         print "# example of mm_json_file : ../../rule/greendam_v7_2_4.mm.json"
         exit()
     mm_json_file = sys.argv[1]
     caffemodel = sys.argv[1]
     prototxt = sys.argv[2]
+    version = sys.argv[3]
     modelsModify = ModelsModify()
     modelsModify.read_dp_json(mm_json_file)
     import caffe
-    modelsModify.process(str(caffemodel),prototxt)
+    modelsModify.process(str(caffemodel),prototxt,version)
 

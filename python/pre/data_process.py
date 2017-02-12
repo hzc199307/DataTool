@@ -68,6 +68,7 @@ class DataProcess:
         output_type = "gt"
         if dp_json["output"].has_key("type"):
             output_type = dp_json["output"]["type"]
+        dict_file_times = None
         if dp_json["process"].has_key("file_times"):
             dict_file_times = {}
             for index,times in dp_json["process"]["file_times"].items():
@@ -75,7 +76,7 @@ class DataProcess:
         file_index = 0
         for file_in_path in dp_json["input"]["path"]:
             file_in = open(file_in_path)
-            if dict_file_times.has_key(file_index):
+            if dict_file_times != None and dict_file_times.has_key(file_index):
                 times = dict_file_times[file_index]
             else:
                 times = 1

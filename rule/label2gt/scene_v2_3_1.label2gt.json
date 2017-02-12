@@ -1,0 +1,82 @@
+[{
+  "name":"convert cut_images_label to cut_images_gt",
+  "input":[{
+      "rootfolder":"/data/greendam/data/Scene/from_shentu/2017/01/11/cut2/images/",
+      "file":"/data/greendam/data/Scene/from_shentu/2017/01/11/cut2/image_original_labels.txt"
+      },{
+      "rootfolder":"/data/greendam/data/Scene/from_shentu/2017/01/18/part1/cut/images/",
+      "file":"/data/greendam/data/Scene/from_shentu/2017/01/18/part1/cut/image_original_labels.txt"
+      },{
+      "rootfolder":"/data/greendam/data/Scene/from_shentu/2017/01/18/part2/cut/images/",
+      "file":"/data/greendam/data/Scene/from_shentu/2017/01/18/part2/cut/image_original_labels.txt"
+      },{
+      "rootfolder":"/data/greendam/data/Scene/from_shentu/2017/01/25/cut/images/",
+      "file":"/data/greendam/data/Scene/from_shentu/2017/01/25/cut/image_original_labels.txt"
+      }
+  ],
+  "process":{
+    "type":"label2gt",
+    "label_gt":{
+      "14":6,
+      "10":7,
+      "8":8,
+      "17":9,
+      "12":10,
+      "25":11,
+      "21":12,
+      "27":13,
+      "19":14,
+      "31":15,
+      "34":16,
+      "41":17
+    }
+  },
+  "output":{
+    "gt":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_3/v2_3_1/list/shentu170111_18_25_cut_images.gt"
+  }
+},
+{
+  "name":"about scene_v2_1_train.gt",
+  "input":[{
+      "rootfolder":"",
+      "file":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_train.gt"
+      }
+  ],
+  "process":{
+    "type":"label2gt",
+    "label_gt":{
+      "0":0,
+      "1":1,
+      "2":2,
+      "3":3,
+      "4":4,
+      "5":5
+    }
+  },
+  "output":{
+    "gt":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_3/v2_3_1/list/label0_5_from_scene_v2_1_train.gt"
+  }
+},
+{
+  "name":"about scene_v2_1_test.gt",
+  "input":[{
+      "rootfolder":"",
+      "file":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_1/list/scene_v2_1_test.gt"
+      }
+  ],
+  "process":{
+    "type":"label2gt",
+    "label_gt":{
+      "0":0,
+      "1":1,
+      "2":2,
+      "3":3,
+      "4":4,
+      "5":5
+    }
+  },
+  "output":{
+    "gt":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_3/v2_3_1/list/label0_5_from_scene_v2_1_test.gt"
+  }
+}
+]
