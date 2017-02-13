@@ -33,6 +33,15 @@ class switch(object):
 
 class Review:
 
+    def read_thresh_file(self,thresh_file):
+        self.thresh_dict = {}
+        if os.path.exists(thresh_file) == False:
+            return
+        thresh_file_read = open(thresh_file)
+        for line in thresh_file_read:
+            strs = line.strip().split()
+            self.thresh_dict[int(strs[0])] = float(strs[1])
+
     def read_file_list(self,file_list):
         self.file_list = file_list
 
@@ -56,6 +65,56 @@ class Review:
                     dict[int(strs[1])] += 1
                 else:
                     dict[int(strs[1])] = 1
+                if int(strs[1]) > max_label_index:
+                    max_label_index = int(strs[1])
+            if file_count == 1:
+                _print =  '%25s  %s' %('ImageReviewRate',\
+                    '  '.join(['%-8s' %('class-%d' %c) for c in range(max_label_index+1)]))
+                print _print
+            _print = '%25s  ' %get_lastname_of_path(file)
+            if isNUM:
+                for label in range(max_label_index+1):
+                    if dict.has_key(label):
+                        num = int(dict[label])
+                        _print += '%-7d   '%(num)
+                    else:
+                        _print += "0         "
+                print _print
+            else:
+                for label in range(max_label_index+1):
+                    if dict.has_key(label):
+                        ratio = float(dict[label])*100/line_count
+                        if ratio == 0.0:
+                            _print += "0.0%      "
+                        else:
+                            _print += '%.7s%%  '%(ratio)
+                    else:
+                        _print += "0.0%      "
+                print _print
+
+    def get_image_review_rate_with_threshold(self,isNUM = False):
+        print "__________________________"
+        file_count = 0
+        for file in self.file_list:
+            ## 针对每个file分别计算复审率
+            # images_count_perlabel = np.zeros((class_num),dtype=np.int32)
+            dict = {}
+            line_count = 0
+            file_count += 1
+            file_read = open(file)
+            max_label_index = 0
+            for line in file_read:
+                line_count += 1
+                strs = line.strip().split()
+                if strs[1] == "-1":
+                    continue
+                if dict.has_key(int(strs[1])) == False:
+                    dict[int(strs[1])] = 0
+                # 必须大于阈值 或者没有阈值，才+1
+                BIGGER_THAN_THRESH = ( self.thresh_dict.has_key(int(strs[1])) and float(strs[3+int(strs[1])].split(":")[1]) > self.thresh_dict[int(strs[1])] )
+                NO_THRESH = (self.thresh_dict.has_key(int(strs[1])) == False)
+                if NO_THRESH or BIGGER_THAN_THRESH:
+                    dict[int(strs[1])] += 1
                 if int(strs[1]) > max_label_index:
                     max_label_index = int(strs[1])
             if file_count == 1:
@@ -267,8 +326,12 @@ if __name__ == '__main__':
     isNUM = False
     if sys.argv[1]=="num": 
         isNUM = True
-    for i in range(3,len(sys.argv)):
-        file_list.append(sys.argv[i])
+    if sys.argv[2].find("thresh")!=-1:
+        for i in range(4,len(sys.argv)):
+            file_list.append(sys.argv[i])
+    else:
+        for i in range(3,len(sys.argv)):
+            file_list.append(sys.argv[i])
     review = Review()
     review.read_file_list(file_list)
     if sys.argv[2]=="image":
@@ -287,3 +350,7 @@ if __name__ == '__main__':
         review.get_video_review_rate_v2()
     elif sys.argv[2]=="video_v3":
         review.get_video_review_rate_v3()
+    elif sys.argv[2]=="image_thresh":
+        threshold_file = sys.argv[3]
+        review.read_thresh_file(threshold_file)
+        review.get_image_review_rate_with_threshold(isNUM)
