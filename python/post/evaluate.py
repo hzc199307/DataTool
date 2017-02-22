@@ -72,19 +72,19 @@ class Evaluate:
 
 	# 评价模型的ReviewRate
 	def process_review(self,classify_result_file_list,review_type="image"):
-		if review_type == "image":
+		if review_type == "image" or review_type == "all":
 			review_tuple_list = []
 			for classify_result_file in classify_result_file_list:
 				review_tuple = Review.calculate_review(self.thresh_dict,classify_result_file)
 				review_tuple_list.append(review_tuple)
 			Review.print_review(review_tuple_list)
-		elif review_type == "video":
+		if review_type == "video" or review_type == "all":
 			review_tuple_list = []
 			for classify_result_file in classify_result_file_list:
 				review_tuple = Review.calculate_video_review(self.thresh_dict,classify_result_file)
 				review_tuple_list.append(review_tuple)
 			Review.print_review(review_tuple_list)
-		elif review_type == "video_combine":
+		if review_type == "video_combine":
 			review_tuple_list = []
 			review_tuple = Review.calculate_video_combine_review(self.thresh_dict_list,classify_result_file_list)
 			review_tuple_list.append(review_tuple)
@@ -181,6 +181,7 @@ class Review:
 		dict_cls_count = {}
 		classify_result_file_read = open(classify_result_file)
 		image_count = 0
+		max_cls_index = 0
 		for line in classify_result_file_read:
 			image_count += 1
 			strs = line.strip().split()
@@ -192,12 +193,14 @@ class Review:
 			if dict_cls_count.has_key(cls)==False:
 				dict_cls_count[cls] = 0
 			dict_cls_count[cls] += 1
+			if cls > max_cls_index:
+				max_cls_index = cls
 		classify_result_file_read.close()
 		# 记录 class1~End的总体复审image数目
 		if dict_cls_count.has_key(0):
 			dict_cls_count[-1] = image_count - dict_cls_count[0]
 		title = "ImageReview\t" + classify_result_file
-		return (title,dict_cls_count,image_count)
+		return (title,dict_cls_count,image_count,max_cls_index)
 
 	# 这是每个classify文件分开计算复审率
 	@staticmethod
@@ -208,6 +211,7 @@ class Review:
 		# dict_cls_count 和 dict_cls_videoid_dict 的 key=-1 是记录 class1~End的video复审率
 		classify_result_file_read = open(classify_result_file)
 		line_count = 0
+		max_cls_index = 0
 		for line in classify_result_file_read:
 			line_count += 1
 			strs = line.strip().split()
@@ -229,12 +233,14 @@ class Review:
 					dict_cls_videoid_dict[-1] = {}
 				else:
 					dict_cls_videoid_dict[-1][videoid] = True
+			if cls > max_cls_index:
+				max_cls_index = cls
 		for cls,videoid_dict in dict_cls_videoid_dict.items():
 			dict_cls_count[cls] = len(videoid_dict)
 		video_count = len(dict_video)
 		classify_result_file_read.close()
 		title = "VideoReview\t" + classify_result_file
-		return (title,dict_cls_count,video_count)
+		return (title,dict_cls_count,video_count,max_cls_index)
 
 	# 这是融合各个classify文件一起计算复审率
 	@staticmethod
@@ -246,6 +252,7 @@ class Review:
 		dict_label_videoid_dict = {}
 		video_count = 0
 		video_review_count = 0
+		max_cls_index = 0
 		title = "VideoCombineReview"
 		for file in classify_result_file_list:
 			title += "\t" + file
@@ -280,7 +287,7 @@ class Review:
 			file_read.close()
 		dict_cls_count = {}
 		dict_cls_count[-1] = video_review_count
-		return (title,dict_cls_count,video_count)
+		return (title,dict_cls_count,video_count,-1)
 
 	@staticmethod
 	def print_review(review_tuple_list):
@@ -288,17 +295,20 @@ class Review:
 			title = review_tuple[0]
 			dict_cls_count = review_tuple[1]
 			count = review_tuple[2]
-			if dict_cls_count.has_key(-1):
-				count_1_end = dict_cls_count[-1]#count - dict_cls_count[0]
+			max_cls_index = review_tuple[3]
 			print title
 			print "index\treview_num\treview_ratio"
-			for cls,review_num in dict_cls_count.items():
-				if cls == -1:
-					continue
+			for cls in range(0,max_cls_index+1):
+				if dict_cls_count.has_key(cls):
+					review_num = dict_cls_count[cls]
+				else:
+					review_num
 				review_ratio = float(review_num)/count
 				print str(cls) + "\t" + '%10s'%('%-.10s'%str(review_num)) + "\t" + str(review_ratio)
 			print "all\t" + '%10s'%('%-.10s'%str(count)) + "\t" + '%-.5s'%str("1.0")
-			print "1-end\t" + '%10s'%('%-.10s'%str(count_1_end)) + "\t" + str(float(count_1_end)/count)
+			if dict_cls_count.has_key(-1):
+				count_1_end = dict_cls_count[-1]#count - dict_cls_count[0]
+				print "1-end\t" + '%10s'%('%-.10s'%str(count_1_end)) + "\t" + str(float(count_1_end)/count)
 			print ""
 
 
@@ -311,7 +321,7 @@ if __name__ == '__main__':
 		print "		2.如果groundtruth文件存在，就计算pr指标；否则，计算复审率指标。"
 		print ""
 		print "Usage 2: 计算ReviewRate"
-		print "	python evaluate.py review image/video no_thresh/<thresh_file> [<classify_result_file> ...]"
+		print "	python evaluate.py review all/image/video no_thresh/<thresh_file> [<classify_result_file> ...]"
 		print "	python evaluate.py review video_combine [(no_thresh/<thresh_file> <classify_result_file>) ...]"
 		print "	Note:"
 		print "		1.thresh_file文件和classify_result_file文件必须成对出现，最终会得到各个文件在非0类别上的复审率之和。"
