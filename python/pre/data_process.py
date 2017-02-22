@@ -183,7 +183,10 @@ class DataProcess:
         os.system('rm '+str(dp_json["output"]["path"])+'_')
 
     def dp_by_split(self,dp_json):
-        label_num = dp_json["process"]["label_num"]
+        if dp_json["process"].has_key("label_num"):
+            label_num = dp_json["process"]["label_num"]
+        else:
+            label_num = dp_json["process"]["test_num"]
         file_out_train = open(dp_json["output"]["train_path"], "w+")
         file_out_test = open(dp_json["output"]["test_path"], "w+")
         label_count = {}
