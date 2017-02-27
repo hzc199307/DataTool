@@ -302,7 +302,7 @@ class Review:
 				if dict_cls_count.has_key(cls):
 					review_num = dict_cls_count[cls]
 				else:
-					review_num
+					review_num = 0
 				review_ratio = float(review_num)/count
 				print str(cls) + "\t" + '%10s'%('%-.10s'%str(review_num)) + "\t" + str(review_ratio)
 			print "all\t" + '%10s'%('%-.10s'%str(count)) + "\t" + '%-.5s'%str("1.0")

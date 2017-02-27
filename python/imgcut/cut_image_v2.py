@@ -94,7 +94,7 @@ class ImageCut:
 
 if __name__ == '__main__':
     if(len(sys.argv)<3):
-      print "python cut_image.py output_path [data_paths ...]"
+      print "python cut_image.py <output_path> [<data_path> ...]"
       print "# note: data_path include subfolders, such as 'imgs'/'labels'"
       exit()
     # data_paths = sys.argv[2]
