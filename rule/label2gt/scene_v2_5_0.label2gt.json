@@ -1,0 +1,67 @@
+[{
+  "name":"convert shentu170111_18_25_original_image.label to shentu170111_18_25_original_image.gt",
+  "input":[{
+      "rootfolder":"",
+      "file":"/data/greendam/data/Scene/from_shentu/2017/01/shentu170111_18_25_original_image.label"
+      }
+  ],
+  "process":{
+    "type":"label2gt",
+    "label_gt":{
+      "17":6,
+      "38":7,
+      "14":8,
+      "12":9,
+      "19":10,
+      "27":11,
+      "10":12,
+      "25":13,
+      "8":14,
+      "23":15,
+      "31":16,
+      "29":17,
+      "21":18,
+      "41":19,
+      "36":20,
+      "43":21,
+      "34":22
+    }
+  },
+  "output":{
+    "gt":"/data/greendam/data/Scene/from_shentu/2017/01/shentu170111_18_25_original_image.gt"
+  }
+},
+{
+  "name":"convert shentu170210_original_image.label to shentu170210_original_image.gt",
+  "input":[{
+      "rootfolder":"",
+      "file":"/data/greendam/data/Scene/from_shentu/2017/02/10/shentu170210_original_image.label"
+      }
+  ],
+  "process":{
+    "type":"label2gt",
+    "label_gt":{
+      "17":6,
+      "38":7,
+      "14":8,
+      "12":9,
+      "19":10,
+      "27":11,
+      "10":12,
+      "25":13,
+      "8":14,
+      "23":15,
+      "31":16,
+      "29":17,
+      "21":18,
+      "41":19,
+      "36":20,
+      "43":21,
+      "34":22
+    }
+  },
+  "output":{
+    "gt":"/data/greendam/data/Scene/from_shentu/2017/02/10/shentu170210_original_image.gt"
+  }
+}
+]

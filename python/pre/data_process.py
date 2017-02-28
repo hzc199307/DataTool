@@ -9,6 +9,8 @@ import json
 import md5
 import os
 
+from dedup_data import *
+
 class Md5Tool:
 
     @staticmethod
@@ -61,6 +63,8 @@ class DataProcess:
                 self.dp_by_split(dp_json)
             elif type == "delete":
                 self.dp_by_delete(dp_json)
+            elif type == "dedup":
+                self.dp_by_dedup(dp_json)
             print ""
 
     def dp_by_merge(self, dp_json):
@@ -97,6 +101,14 @@ class DataProcess:
 
     def dp_by_md5(self,dp_json):
         file_out = open(dp_json["output"]["path"],"w+")
+        md5_db = {}
+        if dp_json["input"].has_key("md5_db"):
+            for md5_db_file in  dp_json["input"]["md5_db"]:
+                md5_db_file_read = open(md5_db_file)
+                for line in md5_db_file_read:
+                    strs = line.strip().split()
+                    md5_db[strs[0]] = strs[2]
+                md5_db_file_read.close()
         gtmd5_file_out = None
         if dp_json["output"].has_key("gtmd5_path"):
             gtmd5_file_out = open(dp_json["output"]["gtmd5_path"],"w+")
@@ -105,9 +117,14 @@ class DataProcess:
             file_in = open(file_in_path)
             for line in file_in:
                 strs = line.strip().split()
-                file_out.write(Md5Tool.md5sum(strs[0])+" "+strs[1]+"\n")
+                md5 = None
+                if md5_db.has_key(strs[0]):
+                    md5 = md5_db[strs[0]]
+                else:
+                    md5 = Md5Tool.md5sum(strs[0])
+                file_out.write(md5+" "+strs[1]+"\n")
                 if gtmd5_file_out!=None:
-                    gtmd5_file_out.write(strs[0]+" "+strs[1]+" "+Md5Tool.md5sum(strs[0])+"\n")
+                    gtmd5_file_out.write(strs[0]+" "+strs[1]+" "+md5+"\n")
                 count += 1
                 if ( count%100 == 0):
                     print "Processed "+str(count)+" files."
@@ -247,6 +264,16 @@ class DataProcess:
                     file_out.write(strs[0]+"\n")
             file_in.close()
         file_out.close()
+        os.system('cat '+str(dp_json["output"]["path"])+'_ | shuf > '+ str(dp_json["output"]["path"]))
+        os.system('rm '+str(dp_json["output"]["path"])+'_')
+
+    def dp_by_dedup(self,dp_json):
+        sub_type = dp_json["process"]["sub_type"]
+        input_file_paths_list = []
+        for file_path in dp_json["input"]["path"]:
+            input_file_paths_list.append(file_path)
+        output_file_path = dp_json["output"]["path"]+"_"
+        DEDUP_DATA(sub_type,input_file_paths_list,output_file_path)
         os.system('cat '+str(dp_json["output"]["path"])+'_ | shuf > '+ str(dp_json["output"]["path"]))
         os.system('rm '+str(dp_json["output"]["path"])+'_')
 
