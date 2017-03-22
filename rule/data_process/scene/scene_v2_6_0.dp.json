@@ -1,0 +1,184 @@
+[
+{
+  "name":"dedup ",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/source/scene_v2_4_test.gt",
+    "/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/source/scene_v2_4_train.gt",
+    "/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/source/shentu170210_original_image.gt",
+    "/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/source/shentu170227keyboard.gt",
+    "/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/source/170310hc_images.gt"]
+  },
+  "process":{
+    "type":"dedup",
+    "sub_type":"filename_gt"
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/scene_v2_6_all.gt"
+  }
+},
+{
+  "name":"split scene_v2_6_all.gt",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/scene_v2_6_all.gt"]
+  },
+  "process":{
+    "type":"split",
+    "test_num":{
+      "0":1465,
+      "1":330,
+      "2":198,
+      "3":248,
+      "4":445,
+      "5":373,
+      "6":216,
+      "7":391,
+      "8":597,
+      "9":516,
+      "10":350,
+      "11":174,
+      "12":206,
+      "13":83,
+      "14":138,
+      "15":69,
+      "16":85,
+      "17":137,
+      "18":200,
+      "19":241,
+      "20":210,
+      "21":106,
+      "22":268
+    }
+  },
+  "output":{
+    "train_path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/scene_v2_6_train.gt",
+    "test_path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/scene_v2_6_1_test.gt"
+  }
+},
+{
+  "name":"calculate scene_v2_6_train.gt md5",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/scene_v2_6_train.gt"],
+    "md5_db":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/source/scene_v2_5_train.gtmd5"]
+  },
+  "process":{
+    "type":"md5"
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/scene_v2_6_train_md5.gt",
+    "gtmd5_path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/scene_v2_6_train.gtmd5"
+  }
+},
+{
+  "name":"aug scene_v2_6_train_md5.gt to scene_v2_6_0_train_md5_balanced_v1.lst",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/scene_v2_6_train_md5.gt"]
+  },
+  "process":{
+    "type":"target",
+    "label_num":{
+      "0":20000,
+      "1":4000,
+      "2":4000,
+      "3":0,
+      "4":5000,
+      "5":5000,
+      "6":4000,
+      "7":0,
+      "8":6000,
+      "9":6000,
+      "10":5000,
+      "11":5000,
+      "12":5000,
+      "13":4000,
+      "14":5000,
+      "15":0,
+      "16":0,
+      "17":0,
+      "18":5000,
+      "19":4000,
+      "20":0,
+      "21":0,
+      "22":5000
+    }
+  },
+  "output":{
+    "type":"lst",
+    "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/scene_v2_6_0_train_md5_balanced_v1.lst"
+  }
+},
+{
+  "name":"get scene_v2_6_0_test.gt",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/scene_v2_6_1_test.gt"]
+  },
+  "process":{
+    "type":"target",
+    "label_num":{
+      "0":-1,
+      "1":-1,
+      "2":-1,
+      "3":0,
+      "4":-1,
+      "5":-1,
+      "6":-1,
+      "7":0,
+      "8":-1,
+      "9":-1,
+      "10":-1,
+      "11":-1,
+      "12":-1,
+      "13":-1,
+      "14":-1,
+      "15":0,
+      "16":0,
+      "17":0,
+      "18":-1,
+      "19":-1,
+      "20":0,
+      "21":0,
+      "22":-1
+    }
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/scene_v2_6_0_test.gt"
+  }
+},
+{
+  "name":"aug scene_v2_6_train_md5.gt to scene_v2_6_1_train_md5_balanced_v1.lst",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/scene_v2_6_train_md5.gt"]
+  },
+  "process":{
+    "type":"target",
+    "label_num":{
+      "0":20000,
+      "1":4000,
+      "2":4000,
+      "3":3000,
+      "4":5000,
+      "5":5000,
+      "6":4000,
+      "7":4000,
+      "8":6000,
+      "9":6000,
+      "10":5000,
+      "11":5000,
+      "12":5000,
+      "13":4000,
+      "14":5000,
+      "15":2000,
+      "16":2000,
+      "17":2000,
+      "18":5000,
+      "19":4000,
+      "20":3000,
+      "21":2000,
+      "22":5000
+    }
+  },
+  "output":{
+    "type":"lst",
+    "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_6/list/scene_v2_6_1_train_md5_balanced_v1.lst"
+  }
+}
+]

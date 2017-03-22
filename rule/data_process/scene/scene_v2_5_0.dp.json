@@ -1,13 +1,11 @@
 [
 {
   "name":"dedup ",
-  "skip":"True",
   "input":{
     "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_5/list/source/scene_v2_4_test.gt",
     "/data/greendam/model_training/greendam_scene_v2/data/scene_v2_5/list/source/scene_v2_4_train.gt",
     "/data/greendam/model_training/greendam_scene_v2/data/scene_v2_5/list/source/shentu170111_18_25_original_image.gt",
     "/data/greendam/model_training/greendam_scene_v2/data/scene_v2_5/list/source/shentu170210_original_image.gt",
-    "/data/greendam/model_training/greendam_scene_v2/data/scene_v2_5/list/source/shentu170224_image.gt",
     "/data/greendam/model_training/greendam_scene_v2/data/scene_v2_5/list/source/shentu170227keyboard.gt"]
   },
   "process":{
@@ -20,36 +18,35 @@
 },
 {
   "name":"split scene_v2_5_all.gt",
-  "skip":"True",
   "input":{
     "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_5/list/scene_v2_5_all.gt"]
   },
   "process":{
     "type":"split",
     "test_num":{
-      "0":1591,
+      "0":1507,
       "1":330,
       "2":198,
       "3":248,
       "4":445,
       "5":373,
-      "6":323,
-      "7":566,
-      "8":1056,
-      "9":1386,
-      "10":478,
-      "11":270,
-      "12":433,
-      "13":165,
-      "14":189,
+      "6":216,
+      "7":441,
+      "8":690,
+      "9":662,
+      "10":470,
+      "11":228,
+      "12":254,
+      "13":131,
+      "14":177,
       "15":130,
       "16":124,
-      "17":187,
-      "18":368,
-      "19":313,
+      "17":186,
+      "18":247,
+      "19":271,
       "20":211,
       "21":106,
-      "22":410
+      "22":355
     }
   },
   "output":{
@@ -58,8 +55,7 @@
   }
 },
 {
-  "name":"calculate scene_v2_4_train.gt md5",
-  "skip":"True",
+  "name":"calculate scene_v2_5_train.gt md5",
   "input":{
     "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_5/list/scene_v2_5_train.gt"],
     "md5_db":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_5/list/source/scene_v2_4_train.gtmd5"]
@@ -87,9 +83,9 @@
       "4":5000,
       "5":5000,
       "6":5000,
-      "7":6000,
-      "8":15000,
-      "9":15000,
+      "7":4000,
+      "8":10000,
+      "9":10000,
       "10":5000,
       "11":5000,
       "12":10000,

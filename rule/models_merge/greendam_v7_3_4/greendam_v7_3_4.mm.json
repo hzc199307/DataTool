@@ -1,0 +1,45 @@
+{
+  "caffe_config":{
+    "caffe_root":"/home/hezhichao/work/caffe/",
+    "device":"0",
+    "mode":"gpu"
+  },
+  "init_model":{
+    "note":"bvlc_googlenet first 5inceptions",
+    "weights":"/home/hezhichao/work/greendam/models/bvlc_googlenet/bvlc_googlenet.caffemodel",
+    "prototxt":"../../rule/models_merge/greendam_v7_3_4/deploy-adult_4inceptions_inke_adult_1inception_screenshot_fc-violenceterror_4inceptions-scene23_4inceptions.prototxt"
+  },
+  "sub_models":[
+    {
+      "note":"adult_v7_2_1_lr0001_8w",
+      "weights":"/home/hezhichao/work/greendam/models/greendam_adult_v7/v7_2_1_model/lr0001/adult_v7_2_1_lr0001_finetune_cyy20161128_154k_adult_1inception_and_fc_iter_80000.caffemodel",
+      "prototxt":"../../rule/models_merge/greendam_v7_3_4/deploy-adult_fc.prototxt",
+      "prefix":"adult"
+    },
+    {
+      "note":"inke_v3_7_0_5340",
+      "weights":"/home/hezhichao/work/greendam/models/greendam_inke_v3_7_model/v3_7_0_lr0001/inke_v3_7_0_finetune_cyy20161128_154000_inke_adult_fc_only_fixed_LR_0001_iter_5340.caffemodel",
+      "prototxt":"../../rule/models_merge/greendam_v7_3_4/deploy-inke_adult_fc.prototxt",
+      "prefix":"inke_adult"
+    },
+    {
+      "note":"sc_v3_0_0_15360",
+      "weights":"/home/hezhichao/work/greendam/models/greendam_screenshot_v3_0_model/sc_v3_0_0_lr0001/sc_v3_0_0_finetune_cyy20161128_154000_sc_fc_only_fixed_LR_0001_iter_15360.caffemodel",
+      "prototxt":"../../rule/models_merge/greendam_v7_3_4/deploy-screenshot_fc.prototxt",
+      "prefix":"screenshot"
+    },
+    {
+      "note":"vt_v1_4_7_270980",
+      "weights":"/home/hezhichao/work/greendam/models/mashuai_model/vt_v1_4_7/vt_v1_4_7_lr00001_multi_class_with_110w_finetune_4inceptions_and_fc_iter_270980.caffemodel",
+      "prototxt":"../../rule/models_merge/greendam_v7_3_4/1206_multi_class_deploy-violenceterror_fc.prototxt",
+      "prefix":"violenceterror"
+    },
+    {
+      "note":"scene_v2_5_0_35k",
+      "weights":"/home/hezhichao/work/greendam/models/scene_v2_model/v2_5_0_lr0001/scene_v2_5_0_lr0001_finetune_4inceptions_and_fc_iter_35000.caffemodel",
+      "prototxt":"../../rule/models_merge/greendam_v7_3_4/deploy-scene23.prototxt",
+      "prefix":"scene"
+    }
+  ],
+  "output_path":"/home/hezhichao/work/greendam/model_online/greendam_v7_3_4/greendam_v7_3_4.caffemodel"
+}

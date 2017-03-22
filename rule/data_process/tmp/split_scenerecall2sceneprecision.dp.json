@@ -1,0 +1,40 @@
+[
+{
+  "name":"split scene recall test data",
+  "input":{
+    "path":["/data/greendam/data/Scene/test/precision/recall20170105_0228.gt"]
+  },
+  "process":{
+    "type":"split",
+    "test_num":{
+      "0":100,
+      "1":100,
+      "2":100,
+      "3":0,
+      "4":100,
+      "5":0,
+      "6":100,
+      "7":100,
+      "8":100,
+      "9":100,
+      "10":100,
+      "11":100,
+      "12":100,
+      "13":100,
+      "14":100,
+      "15":30,
+      "16":0,
+      "17":6,
+      "18":100,
+      "19":100,
+      "20":7,
+      "21":11,
+      "22":100
+    }
+  },
+  "output":{
+    "train_path":"/data/greendam/data/Scene/test/precision/recall20170105_0228_notprecisionpart.gt",
+    "test_path":"/data/greendam/data/Scene/test/precision/recall20170105_0228_precisionpart.gt"
+  }
+}
+]
