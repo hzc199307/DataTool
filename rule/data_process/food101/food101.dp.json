@@ -1,0 +1,32 @@
+[
+{
+  "name":"calculate food101_train_images.gt md5",
+  "input":{
+    "prefix":"/home/hezhichao/work/graduation/dataset/food101/food-101/images/",
+    "path":["/home/hezhichao/work/graduation/dataset/food101/food-101/list/food101_train_images.gt"]
+  },
+  "process":{
+    "type":"md5"
+  },
+  "output":{
+    "path":"/home/hezhichao/work/graduation/dataset/food101/food-101/list/food101_train_images_md5.gt",
+    "gtmd5_path":"/home/hezhichao/work/graduation/dataset/food101/food-101/list/food101_train_images.gtmd5"
+  }
+},
+{
+  "name":"food101_train_images_md5.gt have 750 images per class, but 75 images per class now",
+  "input":{
+    "path":["/home/hezhichao/work/graduation/dataset/food101/food-101/list/food101_train_images_md5.gt"]
+  },
+  "process":{
+    "type":"target",
+    "label_num":{
+      "*":75
+    }
+  },
+  "output":{
+    "type":"lst",
+    "path":"/home/hezhichao/work/graduation/dataset/food101/food-101/list/food101_train_images_md5_75x101_v1.lst"
+  }
+}
+]

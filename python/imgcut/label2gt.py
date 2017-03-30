@@ -8,10 +8,22 @@ import os
 import sys
 import json
 
+#递归的把list和dict里的Unicode对象encode成str,解决json读取中文乱码的问题
+def byteify(input):
+    if isinstance(input, dict):
+        return {byteify(key): byteify(value) for key, value in input.iteritems()}
+    elif isinstance(input, list):
+        return [byteify(element) for element in input]
+    elif isinstance(input, unicode):
+        return input.encode('utf-8')
+    else:
+        return input
+
 class Label2gt:
 
 	def __init__(self,rule_json_file):
 		self.rule_jsons = json.load(open(rule_json_file))
+		self.rule_jsons = byteify(self.rule_jsons)
 
 	def process(self):
 		for rule_json in self.rule_jsons:
@@ -26,6 +38,8 @@ class Label2gt:
 					strs = line.strip().split()
 					if rule.has_key(strs[1]): # 对照表里面没有的就跳过
 						file_output.write(prefix + strs[0] + " " + str(rule[strs[1]]) + "\n")
+					else:
+						print strs[1]
 				file_read.close()
 			file_output.close()
 

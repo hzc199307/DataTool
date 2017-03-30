@@ -1,0 +1,60 @@
+[
+{
+  "name":"calculate sun397 Training_01.gt md5",
+  "skip":"True",
+  "input":{
+    "prefix":"/data/dataset/sun397/SUN397",
+    "path":["/data/dataset/sun397/Partitions/Training_01.gt"]
+  },
+  "process":{
+    "type":"md5"
+  },
+  "output":{
+    "path":"/data/dataset/sun397/Partitions/Training_01_md5.gt",
+    "gtmd5_path":"/data/dataset/sun397/Partitions/Training_01.gtmd5"
+  }
+},
+{
+  "name":"calculate sun397 sun397_images.gt md5",
+  "skip":"True",
+  "input":{
+    "path":["/data/dataset/sun397/sun397_images.gt"],
+    "md5_db":["/data/dataset/sun397/Partitions/Training_01.gtmd5"]
+  },
+  "process":{
+    "type":"md5"
+  },
+  "output":{
+    "path":"/data/dataset/sun397/sun397_images_md5.gt",
+    "gtmd5_path":"/data/dataset/sun397/sun397_images.gtmd5"
+  }
+},
+{
+  "name":"calculate sun397 Testing_01.gt md5",
+  "input":{
+    "prefix":"/data/dataset/sun397/SUN397",
+    "path":["/data/dataset/sun397/Partitions/Testing_01.gt"],
+    "md5_db":["/data/dataset/sun397/sun397_images.gtmd5"]
+  },
+  "process":{
+    "type":"md5"
+  },
+  "output":{
+    "path":"/data/dataset/sun397/Partitions/Testing_01_md5.gt",
+    "gtmd5_path":"/data/dataset/sun397/Partitions/Testing_01.gtmd5"
+  }
+},
+{
+  "name":"calculate sun397 sun397_images.gt md5",
+  "input":{
+    "path":["/data/dataset/sun397/sun397_images_md5.gt"]
+  },
+  "process":{
+    "type":"remove",
+    "path":["/data/dataset/sun397/Partitions/Testing_01_md5.gt"]
+  },
+  "output":{
+    "path":"/data/dataset/sun397/sun397_images_md5_without_Testing_01.gt"
+  }
+}
+]

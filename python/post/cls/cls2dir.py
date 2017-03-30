@@ -18,11 +18,14 @@ class Cls2Dir:
             os.makedirs(dst_dir_path)
         for line in file_read:
             strs = line.strip().split()
-            if strs[1] == "-1":
-                continue
-            if os.path.exists(dst_dir_path + strs[1]) == False:
-                os.makedirs(dst_dir_path + strs[1])
-            os.system('cp ' + strs[0] + " " + dst_dir_path + strs[1])
+            if len(strs)>1:
+                if strs[1] == "-1":
+                    continue
+                if os.path.exists(dst_dir_path + strs[1]) == False:
+                    os.makedirs(dst_dir_path + strs[1])
+                os.system('cp ' + strs[0] + " " + dst_dir_path + strs[1])
+            else:
+                os.system('cp ' + strs[0] + " " + dst_dir_path)
 
 
 if __name__ == '__main__':

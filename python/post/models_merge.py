@@ -40,7 +40,7 @@ class ModelsMerge:
                     print 'coercing', p, i, 'from', net.params[p][i].data.shape, 'to', new_net.params[p_new][i].data.shape
                 else:
                     print 'copying', p, ' -> ', p_new, i
-                new_net.params[p_new][i].data.flat = net.params[p][i].data.flat
+                new_net.params[p_new][i].data.flat = net.params[p][i].data.flat # data是多维数组，flat是1维数组
 
     def read_dp_json(self, dp_json_file):
         self.dp_json = json.load(open(dp_json_file))

@@ -1,0 +1,140 @@
+[
+{
+  "name":"split shent_scene_recall_170105_0106_0224_0228.gt",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/source/inke/shent_scene_recall_170105_0106_0224_0228.gt"]
+  },
+  "process":{
+    "type":"split",
+    "test_num":{
+      "0":470,
+      "6":271,
+      "7":310,
+      "8":950,
+      "9":950,
+      "10":30,
+      "11":120,
+      "12":950,
+      "13":71,
+      "14":190,
+      "15":3,
+      "17":1,
+      "18":230,
+      "19":140,
+      "20":2,
+      "21":2,
+      "22":310
+    }
+  },
+  "output":{
+    "train_path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/shent_scene_recall_170105_0106_0224_0228_train.gt",
+    "test_path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/shent_scene_recall_170105_0106_0224_0228_test.gt"
+  }
+},
+{
+  "name":"merge ",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/shent_scene_recall_170105_0106_0224_0228_train.gt",
+    "/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/source/shentu/scene_v2_4_train.gt"]
+  },
+  "process":{
+    "type":"merge"
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/scene_v2_7_train.gt"
+  }
+},
+{
+  "name":"calculate scene_v2_7_train.gt md5",
+  "skip":"true",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/scene_v2_7_train.gt"],
+    "md5_db":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/source/shentu/scene_v2_4_train.gtmd5"]
+  },
+  "process":{
+    "type":"md5"
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/scene_v2_7_train_md5.gt",
+    "gtmd5_path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/scene_v2_7_train.gtmd5"
+  }
+},
+{
+  "name":"calculate shent_scene_recall_170105_0106_0224_0228_train.gt md5",
+  "skip":"true",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/shent_scene_recall_170105_0106_0224_0228_train.gt"],
+    "md5_db":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/scene_v2_7_train.gtmd5"]
+  },
+  "process":{
+    "type":"md5"
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/shent_scene_recall_170105_0106_0224_0228_train_md5.gt"
+  }
+},
+{
+  "name":"aug shent_scene_recall_170105_0106_0224_0228_train_md5.gt",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/shent_scene_recall_170105_0106_0224_0228_train_md5.gt"]
+  },
+  "process":{
+    "type":"target",
+    "label_num":{
+      "0":6000,
+      "1":0,
+      "2":0,
+      "3":0,
+      "4":0,
+      "5":0,
+      "6":5000,
+      "7":5000,
+      "8":10000,
+      "9":25000,
+      "10":700,
+      "11":5000,
+      "12":10000,
+      "13":1000,
+      "14":5000,
+      "15":150,
+      "16":0,
+      "17":50,
+      "18":5000,
+      "19":5000,
+      "20":50,
+      "21":50,
+      "22":5000
+    }
+  },
+  "output":{
+    "type":"lst",
+    "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/shent_scene_recall_170105_0106_0224_0228_train_md5_balanced_v1.lst"
+  }
+},
+{
+  "name":"merge ",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/shent_scene_recall_170105_0106_0224_0228_train_md5_balanced_v1.lst",
+    "/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/source/shentu/scene_v2_4_1_train_md5_balanced_v1.lst"]
+  },
+  "process":{
+    "type":"merge"
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/scene_v2_7_train_md5_balanced_v1.lst"
+  }
+},
+{
+  "name":"merge ",
+  "input":{
+    "path":["/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/shent_scene_recall_170105_0106_0224_0228_test.gt",
+    "/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/source/shentu/scene_v2_4_test.gt"]
+  },
+  "process":{
+    "type":"merge"
+  },
+  "output":{
+    "path":"/data/greendam/model_training/greendam_scene_v2/data/scene_v2_7/list/scene_v2_7_test.gt"
+  }
+}
+]
