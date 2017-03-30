@@ -1,1 +1,3 @@
 ./tmp/
+./rule/threshold/.*
+./python/model/*.caffemodel
